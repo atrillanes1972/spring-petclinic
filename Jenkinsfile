@@ -15,9 +15,7 @@ spec:
     hostPath:
       path: /var/run/docker.sock
 """
-pipeline {
-  agent { docker 'maven:3.5-alpine' }
-  stages {
+node(POD_LABEL) {
     stage ('Checkout') {
       steps {
         git 'https://github.com/atrillanes1972/spring-petclinic.git'
@@ -29,5 +27,4 @@ pipeline {
       junit '**/target/surefire-reports/TEST-*.xml'
       }
     }
-  }
 }
